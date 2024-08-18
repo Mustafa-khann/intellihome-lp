@@ -1,38 +1,57 @@
-import React, { useState } from "react";
-import emailjs from "emailjs-com";
+import React, { useState, useEffect } from 'react';
 
-const ContactUs = () => {
+import emailjs from 'emailjs-com';
+
+const ContactUs: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
+    name: '',
+    email: '',
+    message: '',
   });
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    // Initialize EmailJS with your user ID
+    if (process.env.REACT_APP_USERID) {
+      emailjs.init(process.env.REACT_APP_USERID);
+    } else {
+      console.error('USERID is not defined in the environment variables');
+    }
+  }, []);
+
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    emailjs
-      .send(
-        "service_tvrdnxj",
-        "template_8iv8pmu",
-        formData,
-        "M1ced8SIwWaOzhKMF"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          alert("Message sent successfully!");
-          setFormData({ name: "", email: "", message: "" });
-        },
-        (error) => {
-          console.log(error.text);
-          alert("Failed to send message. Please try again.");
-        }
+    if (process.env.REACT_APP_SERVICEID && process.env.REACT_APP_TEMPLATEID) {
+      emailjs
+        .send(
+          process.env.REACT_APP_SERVICEID,
+          process.env.REACT_APP_TEMPLATEID,
+          formData
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+            alert('Message sent successfully!');
+            setFormData({ name: '', email: '', message: '' });
+          },
+          (error) => {
+            console.log(error.text);
+            alert('Failed to send message. Please try again.');
+          }
+        );
+    } else {
+      console.error(
+        'SERVICEID or TEMPLATEID is not defined in the environment variables'
       );
+    }
   };
 
   return (
@@ -46,9 +65,9 @@ const ContactUs = () => {
             Get in Touch
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            We'd love to hear from you! Whether you have a question, feedback,
-            or just want to say hello, feel free to reach out to us using the
-            contact form below.
+            We&apos;d love to hear from you! Whether you have a question,
+            feedback, or just want to say hello, feel free to reach out to us
+            using the contact form below.
           </p>
         </div>
         <div className="mt-10">
@@ -100,7 +119,7 @@ const ContactUs = () => {
                 <textarea
                   id="message"
                   name="message"
-                  rows="4"
+                  rows={4}
                   value={formData.message}
                   onChange={handleChange}
                   required

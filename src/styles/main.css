@@ -2,22 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
-  --color-primary: #ec4755;
-  --color-secondary: #a12c34;
-  --color-tertiaty: #99a0a3;
+  --color-primary: #fa6f2f; /* Updated to orange */
+  --color-secondary: #212121; /* Updated to dark grey */
+  --color-tertiary: #ffffff; /* Updated to white */
 }
 
-a { 
-  @apply text-red-700;
+a {
+  @apply text-primary; /* Apply the primary color for links */
 }
 
 a:hover {
-  @apply border-b-2 border-red-700;
+  @apply border-b-2 border-primary; /* Apply primary color on hover */
 }
-
-
 
 .content p {
   @apply my-6;
@@ -25,4 +22,29 @@ a:hover {
 
 .content ul {
   @apply my-6;
+}
+
+/* Custom utility classes */
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-tertiary);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--color-tertiary);
 }

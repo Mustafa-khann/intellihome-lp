@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import config from '../config/index.json';
+import config from "../config/index.json";
 
 const Features = () => {
   const { features } = config;
@@ -28,7 +28,7 @@ const Features = () => {
               <div key={feature.name} className="relative">
                 <dt>
                   <div
-                    className={`absolute flex items-center justify-center h-12 w-12 rounded-md bg-background text-tertiary border-primary border-4`}
+                    className={`absolute flex items-center justify-center h-12 w-12 rounded-md bg-background text-tertiary border-[#F9AA33] border-4`} // Changed to orange
                   >
                     <img
                       className={`inline-block h-6 w-6 rounded-full`}

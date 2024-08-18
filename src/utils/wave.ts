@@ -1,10 +1,10 @@
 /* eslint-disable no-plusplus */
 class Wave {
   private waveLength: number[];
-
   private color: string;
 
-  constructor(waveLength: number[], color: string) {
+  constructor(waveLength: number[], color: string = "#F9AA33") {
+    // Default color is set to orange
     this.waveLength = waveLength;
     this.color = color;
   }
@@ -28,7 +28,7 @@ class Wave {
       context.lineTo(i * 2.5, height - 400 + wave1 * wave2 * wave3 * 200);
     }
     context.lineTo(width, height);
-    context.fillStyle = this.color;
+    context.fillStyle = this.color; // Apply the color to the wave
     context.fill();
     context.closePath();
   };

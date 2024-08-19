@@ -11,8 +11,8 @@ const ContactUs: React.FC = () => {
 
   useEffect(() => {
     // Initialize EmailJS with your user ID
-    if (process.env.USERID) {
-      emailjs.init(process.env.USERID);
+    if (process.env.NEXT_PUBLIC_USERID) {
+      emailjs.init(process.env.NEXT_PUBLIC_USERID);
     } else {
       console.error('USERID is not defined in the environment variables');
     }
@@ -29,9 +29,16 @@ const ContactUs: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (process.env.SERVICEID && process.env.TEMPLATEID) {
+    if (
+      process.env.NEXT_PUBLIC_SERVICEID &&
+      process.env.NEXT_PUBLIC_TEMPLATEID
+    ) {
       emailjs
-        .send(process.env.SERVICEID, process.env.TEMPLATEID, formData)
+        .send(
+          process.env.NEXT_PUBLIC_SERVICEID,
+          process.env.NEXT_PUBLIC_TEMPLATEID,
+          formData
+        )
         .then(
           (result) => {
             console.log(result.text);

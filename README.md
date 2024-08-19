@@ -1,9 +1,5 @@
 # IntellHome Landing Page
 
-## <a href="https://intellihome-lp.vercel.app/"> LIVE DEMO</a>
-
-<img src="public/assets/gifs/demo.gif" width="100%" height="auto" />
-
 ### Features
 
 - 📱  Responsive design

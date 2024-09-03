@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import config from '../config/index.json';
+import AboutOverlay from './AboutOverlay';
 
-const About = () => {
+const About: React.FC = () => {
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+
+  const handleSectionClick = (sectionName: string) => {
+    setActiveSection(sectionName);
+  };
+
+  const handleCloseOverlay = () => {
+    setActiveSection(null);
+  };
   const { company, about } = config;
   const { logo, name: companyName } = company;
-  const { socialMedia, sections } = about;
+  const { socialMedia } = about;
 
   return (
     <div
@@ -17,14 +27,16 @@ const About = () => {
           <img src={logo} alt={companyName} className="w-16 h-16" />
         </div>
         <div className="flex flex-wrap sm:gap-10 gap-8 items-center justify-center mt-4 h-12">
-          {sections.map((section, index) => (
-            <a
-              key={`${section.name}-${index}`}
-              href={section.href}
-              className="hover:text-primary text-base cursor-pointer leading-4 text-gray-800 dark:text-gray-400 dark:hover:text-white"
+          {about.sections.map((section) => (
+            <div
+              key={section.name}
+              className="cursor-pointer"
+              onClick={() => handleSectionClick(section.name)}
             >
-              {section.name}
-            </a>
+              <h3 className="hover:text-primary text-base cursor-pointer leading-4 text-gray-800 dark:text-gray-400 dark:hover:text-white">
+                {section.name}
+              </h3>
+            </div>
           ))}
         </div>
         <div className="flex items-center gap-x-8 mt-6 h-8">
@@ -86,7 +98,11 @@ const About = () => {
           </p>
         </div>
       </div>
+      {activeSection && (
+        <AboutOverlay section={activeSection} onClose={handleCloseOverlay} />
+      )}
     </div>
   );
 };
+
 export default About;
